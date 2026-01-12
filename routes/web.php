@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KasirController;
+
+Route::get('/kasir', [KasirController::class, 'index'])
+    ->name('kasir.index');
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->get('/kasir', function () {
+    return view('kasir.index');
 });
 
 require __DIR__.'/auth.php';
