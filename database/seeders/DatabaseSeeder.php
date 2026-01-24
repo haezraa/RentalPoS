@@ -21,8 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            PsUnitSeeder::class,
-            ProductSeeder::class,
+           
         ]);
     }
 }
