@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->string('image')->nullable()->after('stock'); // Nambah kolom image
+        Schema::create('members', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('phone')->unique(); // No HP wajib unik
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('image');
-        });
+        Schema::dropIfExists('members');
     }
 };

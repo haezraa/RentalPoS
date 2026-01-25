@@ -51,15 +51,13 @@
     <div id="bookingModal"
         class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 backdrop-blur-sm p-4 transition-opacity duration-300">
 
-        <div
-            class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-gray-200 flex flex-col max-h-[85vh] overflow-hidden transform transition-all scale-100">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-gray-200 flex flex-col max-h-[85vh] overflow-hidden transform transition-all scale-100">
 
             <div class="bg-[#2251a5] px-6 py-4 flex justify-between items-center flex-shrink-0 z-20 shadow-md">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <span>🎮</span> <span id="modalTitle">Booking TV</span>
                 </h3>
-                <button onclick="closeModal()"
-                    class="text-white/70 hover:text-white text-2xl leading-none transition">&times;</button>
+                <button onclick="closeModal()" class="text-white/70 hover:text-white text-2xl leading-none transition">&times;</button>
             </div>
 
             <div class="overflow-y-auto scrollbar-hide flex-1 bg-white relative">
@@ -69,9 +67,20 @@
                     <input type="hidden" name="console_id" id="modalConsoleId">
                     <input type="hidden" id="modalConsoleType">
 
+                    <div class="mb-3">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Member (Opsional)</label>
+                        <select name="member_id" id="inputMember" onchange="checkMember()"
+                            class="w-full bg-blue-50 border border-blue-200 text-blue-800 font-bold rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <option value="">Bukan Member (Harga Normal)</option>
+                            @foreach ($members as $member)
+                                <option value="{{ $member->id }}" data-name="{{ $member->name }}">{{ $member->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="mb-4">
                         <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Player</label>
-                        <input type="text" name="nama_pemain"
+                        <input type="text" name="nama_pemain" id="inputNamaPemain"
                             class="w-full bg-gray-50 border border-gray-300 text-gray-900 font-semibold rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
                             required placeholder="Siapa yang main?">
                     </div>
@@ -86,15 +95,12 @@
 
                         <div>
                             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Pesan Makan / Minum</label>
-                            <div
-                                class="bg-gray-50 border border-gray-300 rounded-lg p-2 h-[150px] overflow-y-auto scrollbar-hide space-y-2">
+                            <div class="bg-gray-50 border border-gray-300 rounded-lg p-2 h-[150px] overflow-y-auto scrollbar-hide space-y-2">
                                 @forelse($products as $item)
-                                    <div
-                                        class="flex items-center justify-between bg-white p-2 rounded border border-gray-100 shadow-sm hover:border-blue-200 transition">
+                                    <div class="flex items-center justify-between bg-white p-2 rounded border border-gray-100 shadow-sm hover:border-blue-200 transition">
                                         <div class="flex-1">
                                             <p class="text-xs font-bold text-gray-700 truncate w-20">{{ $item->name }}</p>
-                                            <p class="text-[10px] text-gray-400">Rp
-                                                {{ number_format($item->price, 0, ',', '.') }}</p>
+                                            <p class="text-[10px] text-gray-400">Rp {{ number_format($item->price, 0, ',', '.') }}</p>
                                         </div>
                                         <input type="number" name="qty[{{ $item->id }}]"
                                             data-price="{{ $item->price }}" oninput="calculateTotal()" min="0"
@@ -103,8 +109,7 @@
                                             placeholder="0">
                                     </div>
                                 @empty
-                                    <div
-                                        class="flex flex-col items-center justify-center h-full text-gray-400 text-[10px] italic">
+                                    <div class="flex flex-col items-center justify-center h-full text-gray-400 text-[10px] italic">
                                         <span>Menu Kosong</span>
                                     </div>
                                 @endforelse
@@ -112,8 +117,7 @@
                         </div>
                     </div>
 
-                    <div
-                        class="mb-6 bg-gradient-to-r from-blue-50 to-white border border-blue-100 p-4 rounded-xl flex justify-between items-center shadow-sm">
+                    <div class="mb-6 bg-gradient-to-r from-blue-50 to-white border border-blue-100 p-4 rounded-xl flex justify-between items-center shadow-sm">
                         <div>
                             <p class="text-base text-blue-500 mt-1 font-bold uppercase tracking-wider">Total Bayar : </p>
                         </div>
@@ -127,29 +131,23 @@
 
                         <div class="grid grid-cols-2 gap-3 mb-3">
                             <label class="cursor-pointer relative group">
-                                <input type="radio" name="payment_method" value="cash" class="peer sr-only" checked
-                                    onchange="toggleQris(false)">
-                                <div
-                                    class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all flex items-center justify-center gap-2 group-hover:bg-gray-50">
+                                <input type="radio" name="payment_method" value="cash" class="peer sr-only" checked onchange="toggleQris(false)">
+                                <div class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all flex items-center justify-center gap-2 group-hover:bg-gray-50">
                                     <span>💵</span> Tunai
                                 </div>
                             </label>
                             <label class="cursor-pointer relative group">
-                                <input type="radio" name="payment_method" value="qris" class="peer sr-only"
-                                    onchange="toggleQris(true)">
-                                <div
-                                    class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all flex items-center justify-center gap-2 group-hover:bg-gray-50">
+                                <input type="radio" name="payment_method" value="qris" class="peer sr-only" onchange="toggleQris(true)">
+                                <div class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all flex items-center justify-center gap-2 group-hover:bg-gray-50">
                                     <span>📱</span> QRIS
                                 </div>
                             </label>
                         </div>
 
                         <div id="qrisArea" class="hidden overflow-hidden transition-all duration-300 ease-in-out">
-                            <div
-                                class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-3 flex items-center gap-4 animate-in fade-in slide-in-from-top-2">
+                            <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-3 flex items-center gap-4 animate-in fade-in slide-in-from-top-2">
                                 <div class="bg-white p-1 rounded border border-gray-200 shadow-sm flex-shrink-0">
-                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ContohQRISRentalPS"
-                                        class="w-20 h-20" alt="QRIS">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ContohQRISRentalPS" class="w-20 h-20" alt="QRIS">
                                 </div>
                                 <div class="flex-1">
                                     <p class="text-sm font-bold text-gray-800">Scan QRIS</p>
@@ -163,9 +161,8 @@
                     </div>
 
                     <div class="mt-6">
-                        <button type="submit"
-                            class="w-full bg-[#2251a5] hover:bg-blue-800 text-white py-3.5 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                            <span></span> START GAME
+                        <button type="submit" class="w-full bg-[#2251a5] hover:bg-blue-800 text-white py-3.5 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                            <span>🚀</span> START GAME
                         </button>
                     </div>
                 </form>
@@ -173,63 +170,42 @@
         </div>
     </div>
 
-    <div id="addUnitModal"
-        class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 backdrop-blur-sm p-4">
-
-        <div
-            class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-gray-200 transform transition-all">
+    <div id="addUnitModal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 backdrop-blur-sm p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-gray-200 transform transition-all">
 
             <div class="bg-[#2251a5] px-6 py-4 flex justify-between items-center">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <span>📺</span> <span>Tambah Unit Baru</span>
                 </h3>
-                <button onclick="closeAddModal()"
-                    class="text-white/70 hover:text-white text-2xl leading-none">&times;</button>
+                <button onclick="closeAddModal()" class="text-white/70 hover:text-white text-2xl leading-none">&times;</button>
             </div>
 
             <form action="{{ route('consoles.store') }}" method="POST" class="p-6 text-gray-800">
                 @csrf
-
                 <div class="mb-4">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Unit</label>
-                    <input type="text" name="nama_unit"
-                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 font-semibold rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder-gray-400"
-                        required placeholder="Contoh: TV 05">
+                    <input type="text" name="nama_unit" class="w-full bg-gray-50 border border-gray-300 text-gray-900 font-semibold rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none placeholder-gray-400" required placeholder="Contoh: TV 05">
                 </div>
 
                 <div class="mb-6">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Jenis Konsol</label>
                     <div class="grid grid-cols-3 gap-3">
-
                         <label class="cursor-pointer relative">
                             <input type="radio" name="tipe_ps" value="PS3" class="peer sr-only" required>
-                            <div
-                                class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all hover:bg-gray-50">
-                                PS 3
-                            </div>
+                            <div class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all hover:bg-gray-50">PS 3</div>
                         </label>
-
                         <label class="cursor-pointer relative">
                             <input type="radio" name="tipe_ps" value="PS4" class="peer sr-only">
-                            <div
-                                class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all hover:bg-gray-50">
-                                PS 4
-                            </div>
+                            <div class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all hover:bg-gray-50">PS 4</div>
                         </label>
-
                         <label class="cursor-pointer relative">
                             <input type="radio" name="tipe_ps" value="PS5" class="peer sr-only">
-                            <div
-                                class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all hover:bg-gray-50">
-                                PS 5
-                            </div>
+                            <div class="p-3 rounded-lg border-2 border-gray-200 text-gray-500 peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:text-blue-700 font-bold text-center transition-all hover:bg-gray-50">PS 5</div>
                         </label>
-
                     </div>
                 </div>
 
-                <button type="submit"
-                    class="w-full bg-[#2251a5] hover:bg-blue-800 text-white py-3.5 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
+                <button type="submit" class="w-full bg-[#2251a5] hover:bg-blue-800 text-white py-3.5 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
                     SIMPAN UNIT ✅
                 </button>
             </form>
@@ -237,24 +213,26 @@
     </div>
 
     <script>
-        // --- 1. SETUP LOGIC MODAL START ---
+        // --- 1. SETUP LOGIC MODAL BOOKING ---
         function openModal(name, type, id) {
             const modal = document.getElementById('bookingModal');
             modal.classList.remove('hidden');
 
-            // 1. Set Data ke Input Hidden
+            // Set Data ke Input Hidden
             document.getElementById('modalTitle').innerText = name + ' (' + type + ')';
             document.getElementById('modalConsoleId').value = id;
             document.getElementById('modalConsoleType').value = type;
 
-            // 2. Reset Form biar bersih (Input jadi kosong, Radio balik ke Tunai)
+            // Reset Form & UI
             document.getElementById('bookingForm').reset();
+            document.getElementById('qrisArea').classList.add('hidden'); // Sembunyiin QRIS
 
-            // --- FIX BUG DISINI ---
-            // 3. Paksa Kotak QRIS buat Ngumpet (Hidden)
-            document.getElementById('qrisArea').classList.add('hidden');
+            // Reset Member & Nama
+            document.getElementById('inputMember').value = "";
+            document.getElementById('inputNamaPemain').readOnly = false;
+            document.getElementById('inputNamaPemain').value = "";
 
-            // 4. Trigger hitung total awal
+            // Trigger hitung total awal (1 jam, no member)
             calculateTotal();
         }
 
@@ -262,28 +240,51 @@
             document.getElementById('bookingModal').classList.add('hidden');
         }
 
-        // --- 2. LOGIC HITUNG HARGA LIVE ---
-        function calculateTotal() {
-            // A. Ambil Harga Sewa per Jam (UPDATE HARGA DISINI BRO)
-            let type = document.getElementById('modalConsoleType').value;
-            let pricePerHour = 0;
+        // --- 2. LOGIC MEMBER OTOMATIS ISI NAMA ---
+        function checkMember() {
+            const memberSelect = document.getElementById('inputMember');
+            const namaInput = document.getElementById('inputNamaPemain');
 
-            // --- HARGA BARU SESUAI REQUEST ---
-            if (type === 'PS3') {
-                pricePerHour = 5000;
-            } else if (type === 'PS4') {
-                pricePerHour = 7000; // Dulu 8000, sekarang jadi 7000
-            } else if (type === 'PS5') {
-                pricePerHour = 12000;
+            // Ambil nama dari option yang dipilih (data-name)
+            if (memberSelect.value) {
+                const selectedOption = memberSelect.options[memberSelect.selectedIndex];
+                const memberName = selectedOption.getAttribute('data-name');
+
+                // Isi otomatis & Kunci
+                namaInput.value = memberName;
+                // namaInput.readOnly = true;
+            } else {
+                // Balik ke manual
+                namaInput.value = '';
+                // namaInput.readOnly = false;
             }
 
-            // B. Ambil Durasi
+            // Hitung ulang harga (karena diskon berubah)
+            calculateTotal();
+        }
+
+        // --- 3. LOGIC HITUNG HARGA LIVE (PLUS DISKON MEMBER) ---
+        function calculateTotal() {
+            let type = document.getElementById('modalConsoleType').value;
+            let memberSelect = document.getElementById('inputMember');
+            let isMember = memberSelect.value !== ""; // Cek ada member dipilih ga
+
+            let pricePerHour = 0;
+
+            // LOGIKA HARGA (REGULAR vs MEMBER)
+            if (type === 'PS3') {
+                pricePerHour = isMember ? 4000 : 5000;
+            } else if (type === 'PS4') {
+                pricePerHour = isMember ? 6000 : 7000;
+            } else if (type === 'PS5') {
+                pricePerHour = isMember ? 10000 : 12000;
+            }
+
+            // Hitung Rental
             let duration = parseInt(document.getElementById('inputDurasi').value) || 0;
             let rentalTotal = pricePerHour * duration;
 
-            // ... (sisanya sama kayak script sebelumnya buat hitung FnB) ...
-
-            // C. Hitung Total FnB
+            // Hitung FnB
             let fnbTotal = 0;
             let fnbInputs = document.querySelectorAll('.fnb-qty');
             fnbInputs.forEach(input => {
@@ -292,7 +293,7 @@
                 fnbTotal += (qty * price);
             });
 
-            // D. Jumlahin & Format
+            // Total & Format
             let grandTotal = rentalTotal + fnbTotal;
             let formatted = new Intl.NumberFormat('id-ID', {
                 style: 'currency',
@@ -303,9 +304,26 @@
             document.getElementById('liveTotalDisplay').innerText = formatted;
         }
 
-        // --- 3. TIMER COUNTDOWN (UPDATE BIAR AUTO RELOAD) ---
-        // Update script countdown lu yang lama pake yang ini:
+        // --- 4. TOGGLE QRIS ---
+        function toggleQris(show) {
+            const qrisArea = document.getElementById('qrisArea');
+            if (show) {
+                qrisArea.classList.remove('hidden');
+            } else {
+                qrisArea.classList.add('hidden');
+            }
+        }
 
+        // --- 5. MODAL TAMBAH UNIT ---
+        function openAddModal() {
+            document.getElementById('addUnitModal').classList.remove('hidden');
+        }
+
+        function closeAddModal() {
+            document.getElementById('addUnitModal').classList.add('hidden');
+        }
+
+        // --- 6. TIMER COUNTDOWN & AUTO RELOAD ---
         document.addEventListener('DOMContentLoaded', function() {
             const timers = document.querySelectorAll('.countdown-timer');
 
@@ -320,14 +338,10 @@
                         clearInterval(interval);
                         timer.innerHTML = "SELESAI";
 
-                        // --- AUTO RELOAD DISINI ---
-                        // Pas waktu habis, reload halaman.
-                        // Controller bakal otomatis nge-reset status jadi 'Ready'.
+                        // AUTO RELOAD BIAR RESET STATUS
                         location.reload();
-
                     } else {
-                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 *
-                            60));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -339,66 +353,6 @@
                 }, 1000);
             });
         });
-
-        // --- Logic QRIS Toggle ---
-        function toggleQris(show) {
-            const qrisArea = document.getElementById('qrisArea');
-
-            if (show) {
-                // Munculin QRIS
-                qrisArea.classList.remove('hidden');
-            } else {
-                // Sembunyiin QRIS
-                qrisArea.classList.add('hidden');
-            }
-        }
-
-        // FUNGSI UPDATE TIMER MUNDUR
-        function updateTimers() {
-            // Cari semua elemen yang punya class 'countdown-timer'
-            const timers = document.querySelectorAll('.countdown-timer');
-
-            timers.forEach(timer => {
-                const endTimeStr = timer.getAttribute('data-end');
-                if (!endTimeStr) return;
-
-                const endTime = new Date(endTimeStr).getTime();
-                const now = new Date().getTime();
-                const distance = endTime - now;
-
-                if (distance < 0) {
-                    // Kalo waktu habis
-                    timer.innerHTML = "<span class='text-red-500'>ENDED</span>";
-                    timer.classList.add('animate-pulse');
-                } else {
-                    // Hitung Jam, Menit, Detik
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    // Format biar jadi 01:05:09 (pake padStart)
-                    timer.innerText =
-                        String(hours).padStart(2, '0') + ":" +
-                        String(minutes).padStart(2, '0') + ":" +
-                        String(seconds).padStart(2, '0');
-                }
-            });
-        }
-
-        // Jalankan fungsi updateTimers setiap 1 detik (1000ms)
-        setInterval(updateTimers, 1000);
-
-        // Jalanin sekali pas halaman baru dimuat biar gak nunggu 1 detik
-        updateTimers();
-
-        // --- Logic Modal Tambah Unit ---
-        function openAddModal() {
-            document.getElementById('addUnitModal').classList.remove('hidden');
-        }
-
-        function closeAddModal() {
-            document.getElementById('addUnitModal').classList.add('hidden');
-        }
     </script>
 
 @endsection

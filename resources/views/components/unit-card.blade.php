@@ -35,11 +35,14 @@
         </div>
 
         <div class="flex items-center gap-3">
-            <form action="{{ route('consoles.destroy', $unit->id) }}" method="POST"
-                onsubmit="return confirm('Hapus Unit TV ini permanen?')">
+            <form id="deleteUnitForm-{{ $unit->id }}" action="{{ route('consoles.destroy', $unit->id) }}"
+                method="POST">
                 @csrf @method('DELETE')
-                <button type="submit" class="text-white/50 hover:text-white transition-all" title="Hapus Unit">
-                    <svg class="w-5 h-5 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                <button type="button"
+                    onclick="openConfirm('Yakin ingin menghapus unit TV ini secara permanen?', 'deleteUnitForm-{{ $unit->id }}')"
+                    class="text-white/50 hover:text-white transition-all" title="Hapus Unit">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
                         </path>
@@ -120,10 +123,11 @@
                     </form>
                 @endif
 
-                <form action="{{ route('booking.stop', $unit->id) }}" method="POST"
-                    onsubmit="return confirm('Yakin reset TV ini?')">
+                <form id="stopUnitForm-{{ $unit->id }}" action="{{ route('booking.stop', $unit->id) }}"
+                    method="POST">
                     @csrf
-                    <button type="submit"
+                    <button type="button"
+                        onclick="openConfirm('Yakin ingin mereset waktu TV ini? Transaksi akan dianggap selesai.', 'stopUnitForm-{{ $unit->id }}')"
                         class="w-full py-2.5 bg-black/40 hover:bg-red-600 text-white text-xs font-bold rounded-lg shadow transition flex flex-col items-center justify-center">
                         STOP
                     </button>

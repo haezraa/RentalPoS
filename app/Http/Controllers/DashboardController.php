@@ -7,6 +7,7 @@ use App\Models\Console;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use App\Models\Product;
+use App\Models\Member;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -27,6 +28,14 @@ class DashboardController extends Controller
         if ($console->type == 'PS4') $harga_per_jam = 7000; // Ubah jadi 7000
         if ($console->type == 'PS5') $harga_per_jam = 12000;
 
+        // Cek apakah user milih member di form?
+        if ($request->has('member_id') && !empty($request->member_id)) {
+            // HARGA MEMBER (Diskon)
+            if($console->type == 'PS3') $harga_per_jam = 4000;  // Hemat 1rb
+            if($console->type == 'PS4') $harga_per_jam = 6000;  // Hemat 1rb
+            if($console->type == 'PS5') $harga_per_jam = 10000; // Hemat 2rb
+        }
+
         $durasi_jam = (int) $request->durasi;
         $biaya_sewa = $harga_per_jam * $durasi_jam;
         $total_bayar = $biaya_sewa; // Nanti ditambah biaya makan
@@ -38,7 +47,7 @@ class DashboardController extends Controller
             'duration_minutes' => $durasi_jam * 60,
             'start_time' => Carbon::now(),
             'end_time' => Carbon::now()->addHours($durasi_jam),
-            'total_price' => 0, 
+            'total_price' => 0,
             'status' => 'ongoing'
         ]);
 
@@ -158,7 +167,9 @@ class DashboardController extends Controller
         // Ambil produk buat modal
         $products = Product::where('stock', '>', 0)->get();
 
-        return view('dashboard', compact('ps3_units', 'ps4_units', 'ps5_units', 'products'));
+        $members = Member::orderBy('name')->get();
+
+        return view('dashboard', compact('ps3_units', 'ps4_units', 'ps5_units', 'products', 'members'));
     }
 
     public function store(Request $request)

@@ -6,7 +6,7 @@
 
     <div class="bg-[#2251a5] rounded-2xl p-6 text-white shadow-lg mb-8 flex justify-between items-center relative overflow-hidden">
         <div class="relative z-10">
-            <h2 class="text-3xl font-black mb-1">Halo, Admin Ganteng! 👋</h2>
+            <h2 class="text-3xl font-black mb-1">Halo, Admin! 👋</h2>
             <p class="text-blue-200 text-sm">Semoga hari ini rental ramai dan lancar ya!</p>
         </div>
         <svg class="w-32 h-32 absolute -right-4 -bottom-8 text-white/10 rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H4.41c.62-1.29 1.61-2.31 2.85-2.97V7h2.48v3.03c1.24.66 2.23 1.68 2.85 2.97H11v-3zM8 11.5c0-.83-.67-1.5-1.5-1.5S5 10.67 5 11.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5zm11 1.5h-2.41c-.62 1.29-1.61 2.31-2.85 2.97V17h-2.48v-3.03c-1.24-.66-2.23-1.68-2.85-2.97H19v3zm-1.5-1.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5.67 1.5 1.5 1.5 1.5-.67 1.5-1.5z"/></svg>
@@ -76,7 +76,7 @@
                                 @elseif($history->status == 'ongoing')
                                     <span class="bg-blue-100 text-blue-600 py-1 px-3 rounded-full text-xs font-bold">Main</span>
                                 @else
-                                    <span class="bg-yellow-100 text-yellow-600 py-1 px-3 rounded-full text-xs font-bold">{{ $history->status }}</span>
+                                    <span class="bg-yellow-100 text-yellow-600 py-1 px-3 rounded-full text-xs font-bold">Paused</span>
                                 @endif
                             </td>
                         </tr>
