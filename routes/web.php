@@ -8,40 +8,58 @@ use App\Http\Controllers\FnbController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MemberController;
 
+/*
+|--------------------------------------------------------------------------
+| 1. HALAMAN DEPAN (HOMEPAGE)
+|--------------------------------------------------------------------------
+*/
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/rental', [DashboardController::class, 'index'])->name('dashboard');
 
-// Jalur buat Nambah Unit Baru
-Route::post('/consoles/store', [DashboardController::class, 'store'])->name('consoles.store');
+/*
+|--------------------------------------------------------------------------
+| 2. AREA TERKUNCI (WAJIB LOGIN) 🔐
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'verified'])->group(function () {
 
-// Jalur buat Hapus Unit
-Route::delete('/consoles/{id}', [DashboardController::class, 'destroy'])->name('consoles.destroy');
+    // --- FIX REDIRECT BREEZE ---
+    // Kalau sistem breeze nyari /dashboard, kita lempar ke /rental
+    Route::get('/dashboard', function () {
+        return redirect()->route('rental'); // <--- Arahin ke route 'rental'
+    });
 
-Route::post('/booking/start', [DashboardController::class, 'startSession'])->name('booking.start');
-Route::post('/booking/stop/{id}', [DashboardController::class, 'stopSession'])->name('booking.stop');
-Route::post('/booking/toggle/{id}', [DashboardController::class, 'toggleTimer'])->name('booking.toggle');
-Route::post('/booking/add-order', [DashboardController::class, 'addOrder'])->name('booking.addOrder');
+    // --- RENTAL AREA (UTAMA) ---
+    // PENTING: name-nya harus 'rental' biar cocok sama Sidebar & Controller Login
+    Route::get('/rental', [DashboardController::class, 'index'])->name('rental');
 
-// FNB ROUTES
-Route::get('/fnb', [FnbController::class, 'index'])->name('fnb.index');
-Route::post('/fnb', [FnbController::class, 'store'])->name('fnb.store');
+    // CONSOLE LOGIC
+    Route::post('/consoles/store', [DashboardController::class, 'store'])->name('consoles.store');
+    Route::delete('/consoles/{id}', [DashboardController::class, 'destroy'])->name('consoles.destroy');
 
-// --- UBAH DARI PUT KE POST ---
-// Ganti URI-nya dikit biar gak bentrok, misal jadi /fnb/update/{id}
-Route::post('/fnb/update/{id}', [FnbController::class, 'update'])->name('fnb.update_post');
-// Route stok cepat tetep PATCH gapapa (karena ga ada upload file)
-Route::patch('/fnb/{id}/stock', [FnbController::class, 'updateStock'])->name('fnb.quick_stock');
-Route::delete('/fnb/{id}', [FnbController::class, 'destroy'])->name('fnb.destroy');
-Route::get('/fnb/order', [FnbController::class, 'cashier'])->name('fnb.cashier');
+    // BOOKING LOGIC
+    Route::post('/booking/start', [DashboardController::class, 'startSession'])->name('booking.start');
+    Route::post('/booking/stop/{id}', [DashboardController::class, 'stopSession'])->name('booking.stop');
+    Route::post('/booking/toggle/{id}', [DashboardController::class, 'toggleTimer'])->name('booking.toggle');
+    Route::post('/booking/add-order', [DashboardController::class, 'addOrder'])->name('booking.addOrder');
 
-// Halaman Laporan
-Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
-Route::resource('members', MemberController::class);
+    // FNB (STOK & KASIR)
+    Route::get('/fnb', [FnbController::class, 'index'])->name('fnb.index');
+    Route::post('/fnb', [FnbController::class, 'store'])->name('fnb.store');
 
-Route::middleware('auth')->group(function () {
+    // UPDATE FNB (POST)
+    Route::post('/fnb/update/{id}', [FnbController::class, 'update'])->name('fnb.update_post');
+    Route::patch('/fnb/{id}/stock', [FnbController::class, 'updateStock'])->name('fnb.quick_stock');
+    Route::delete('/fnb/{id}', [FnbController::class, 'destroy'])->name('fnb.destroy');
+    Route::get('/fnb/order', [FnbController::class, 'cashier'])->name('fnb.cashier');
+
+    // LAPORAN & MEMBER
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::resource('members', MemberController::class);
+
+    // PROFILE
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

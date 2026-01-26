@@ -169,7 +169,7 @@ class DashboardController extends Controller
 
         $members = Member::orderBy('name')->get();
 
-        return view('dashboard', compact('ps3_units', 'ps4_units', 'ps5_units', 'products', 'members'));
+        return view('rental', compact('ps3_units', 'ps4_units', 'ps5_units', 'products', 'members'));
     }
 
     public function store(Request $request)
@@ -188,7 +188,7 @@ class DashboardController extends Controller
             'price_per_hour' => 0
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Unit baru berhasil dibuat!');
+        return redirect()->route('rental')->with('success', 'Unit baru berhasil dibuat!');
     }
 
     public function destroy($id)
@@ -197,10 +197,10 @@ class DashboardController extends Controller
 
         if ($console) {
             $console->delete();
-            return redirect()->route('dashboard')->with('success', 'Unit berhasil dihapus.');
+            return redirect()->route('rental')->with('success', 'Unit berhasil dihapus.');
         }
 
-        return redirect()->route('dashboard')->with('error', 'Unit tidak ditemukan.');
+        return redirect()->route('rental')->with('error', 'Unit tidak ditemukan.');
     }
 
     public function addOrder(Request $request)
