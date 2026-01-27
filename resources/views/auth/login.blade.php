@@ -18,11 +18,7 @@
 
         <div class="relative z-10 flex items-center gap-3">
             <div class="bg-white/20 p-2 rounded-lg">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
             </div>
-            <span class="font-bold tracking-widest text-sm uppercase text-blue-200">System v1.0</span>
         </div>
 
         <div class="relative z-10 mb-20">
@@ -30,12 +26,12 @@
                 KELOLA RENTAL <br> LEBIH MUDAH.
             </h1>
             <p class="text-blue-100 text-lg max-w-md leading-relaxed">
-                Sistem manajemen kasir, stok, dan laporan terintegrasi untuk Rizki Rental PS.
+                Sistem manajemen kasir, stok, dan laporan terintegrasi untuk Rizki Rental.
             </p>
         </div>
 
         <div class="relative z-10 text-xs text-blue-300">
-            &copy; {{ date('Y') }} Rizki Rental PS. All rights reserved.
+            &copy; {{ date('Y') }} Rizki Rental PS.
         </div>
     </div>
 
@@ -48,7 +44,7 @@
             </div>
 
             <div class="text-left mb-10">
-                <h2 class="text-3xl font-black text-gray-800 mb-2">Selamat Datang 👋</h2>
+                <h2 class="text-3xl font-black text-gray-800 mb-2">Selamat Datang </h2>
                 <p class="text-gray-500">Silakan masukkan email dan password admin.</p>
             </div>
 
