@@ -162,7 +162,7 @@
 
                     <div class="mt-6">
                         <button type="submit" class="w-full bg-[#2251a5] hover:bg-blue-800 text-white py-3.5 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                            <span>🚀</span> START GAME
+                         START GAME
                         </button>
                     </div>
                 </form>
@@ -206,7 +206,7 @@
                 </div>
 
                 <button type="submit" class="w-full bg-[#2251a5] hover:bg-blue-800 text-white py-3.5 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
-                    SIMPAN UNIT ✅
+                    SIMPAN UNIT
                 </button>
             </form>
         </div>

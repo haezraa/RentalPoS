@@ -8,28 +8,15 @@ use App\Http\Controllers\FnbController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\MemberController;
 
-/*
-|--------------------------------------------------------------------------
-| 1. HALAMAN DEPAN (HOMEPAGE)
-|--------------------------------------------------------------------------
-*/
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-/*
-|--------------------------------------------------------------------------
-| 2. AREA TERKUNCI (WAJIB LOGIN) 🔐
-|--------------------------------------------------------------------------
-*/
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // --- FIX REDIRECT BREEZE ---
-    // Kalau sistem breeze nyari /dashboard, kita lempar ke /rental
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+
     Route::get('/dashboard', function () {
-        return redirect()->route('rental'); // <--- Arahin ke route 'rental'
+        return redirect()->route('rental');
     });
 
     // --- RENTAL AREA (UTAMA) ---
-    // PENTING: name-nya harus 'rental' biar cocok sama Sidebar & Controller Login
     Route::get('/rental', [DashboardController::class, 'index'])->name('rental');
 
     // CONSOLE LOGIC
