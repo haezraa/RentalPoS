@@ -16,7 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return redirect()->route('rental');
     });
 
-    // --- RENTAL AREA (UTAMA) ---
+    // --- area utama ---
     Route::get('/rental', [DashboardController::class, 'index'])->name('rental');
 
     // CONSOLE LOGIC

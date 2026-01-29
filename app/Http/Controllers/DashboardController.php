@@ -25,7 +25,7 @@ class DashboardController extends Controller
 
         // --- HARGA BARU ---
         if ($console->type == 'PS3') $harga_per_jam = 5000;
-        if ($console->type == 'PS4') $harga_per_jam = 7000; // Ubah jadi 7000
+        if ($console->type == 'PS4') $harga_per_jam = 7000;
         if ($console->type == 'PS5') $harga_per_jam = 12000;
 
         // Cek apakah user milih member di form?
@@ -38,7 +38,7 @@ class DashboardController extends Controller
 
         $durasi_jam = (int) $request->durasi;
         $biaya_sewa = $harga_per_jam * $durasi_jam;
-        $total_bayar = $biaya_sewa; // Nanti ditambah biaya makan
+        $total_bayar = $biaya_sewa;
 
         // 3. Simpan Transaksi Utama Dulu (Status Ongoing)
         $transaction = Transaction::create([
@@ -99,28 +99,24 @@ class DashboardController extends Controller
 
         if ($transaction->status == 'ongoing') {
             // --- LOGIC PAUSE ---
-            // Ubah status jadi 'paused' dan catet jam sekarang
             $transaction->update([
                 'status' => 'paused',
                 'paused_at' => Carbon::now()
             ]);
         } elseif ($transaction->status == 'paused') {
             // --- LOGIC RESUME ---
-            // Hitung berapa lama dia dipause
             $waktu_pause = Carbon::parse($transaction->paused_at);
             $sekarang = Carbon::now();
 
-            // Selisih waktu (dalam menit)
+            // Selisih waktu
             $selisih_menit = $waktu_pause->diffInMinutes($sekarang);
 
-            // Mundurin Jam Selesai (End Time) sesuai lamanya dia pause
-            // Jadi user gak rugi waktu
             $new_end_time = Carbon::parse($transaction->end_time)->addMinutes($selisih_menit);
 
             $transaction->update([
                 'status' => 'ongoing',
                 'end_time' => $new_end_time,
-                'paused_at' => null // Kosongin lagi
+                'paused_at' => null
             ]);
         }
 
@@ -131,29 +127,27 @@ class DashboardController extends Controller
     public function stopSession($id)
     {
         $console = Console::find($id);
-        $transaction = $console->activeTransaction; // Ambil transaksi yg ongoing/paused
+        $transaction = $console->activeTransaction;
 
         if ($transaction) {
             $transaction->update(['status' => 'finished']);
         }
 
-        $console->update(['status' => 'ready']); // TV Hijau lagi
+        $console->update(['status' => 'ready']);
 
         return back()->with('success', 'Sesi selesai. Unit ready kembali.');
     }
 
     public function index()
     {
-        // --- LOGIC AUTO RESET (BARU) ---
+        // --- LOGIC AUTO RESET ---
         $expired_transactions = Transaction::where('status', 'ongoing')
             ->where('end_time', '<=', Carbon::now())
             ->get();
 
         foreach ($expired_transactions as $trans) {
-            // 1. Ubah status transaksi jadi selesai
             $trans->update(['status' => 'finished']);
 
-            // 2. Ubah status TV jadi ready lagi
             if ($trans->console) {
                 $trans->console->update(['status' => 'ready']);
             }

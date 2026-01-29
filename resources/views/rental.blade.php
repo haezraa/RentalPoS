@@ -252,7 +252,6 @@
 
                 // Isi otomatis & Kunci
                 namaInput.value = memberName;
-                // namaInput.readOnly = true;
             } else {
                 // Balik ke manual
                 namaInput.value = '';

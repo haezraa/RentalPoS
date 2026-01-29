@@ -144,7 +144,6 @@
         renderCart();
     }
 
-    // 2. FUNGSI UBAH QTY (+ dan -)
     function changeQty(id, delta) {
         id = String(id);
         if (cart[id]) {
