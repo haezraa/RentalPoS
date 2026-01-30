@@ -16,34 +16,32 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return redirect()->route('rental');
     });
 
-    // --- area utama ---
     Route::get('/rental', [DashboardController::class, 'index'])->name('rental');
 
-    // CONSOLE LOGIC
+    // cconsole
     Route::post('/consoles/store', [DashboardController::class, 'store'])->name('consoles.store');
     Route::delete('/consoles/{id}', [DashboardController::class, 'destroy'])->name('consoles.destroy');
 
-    // BOOKING LOGIC
+    // book tv
     Route::post('/booking/start', [DashboardController::class, 'startSession'])->name('booking.start');
     Route::post('/booking/stop/{id}', [DashboardController::class, 'stopSession'])->name('booking.stop');
     Route::post('/booking/toggle/{id}', [DashboardController::class, 'toggleTimer'])->name('booking.toggle');
     Route::post('/booking/add-order', [DashboardController::class, 'addOrder'])->name('booking.addOrder');
 
-    // FNB (STOK & KASIR)
+    // fnb
     Route::get('/fnb', [FnbController::class, 'index'])->name('fnb.index');
     Route::post('/fnb', [FnbController::class, 'store'])->name('fnb.store');
 
-    // UPDATE FNB (POST)
+    // fnb post
     Route::post('/fnb/update/{id}', [FnbController::class, 'update'])->name('fnb.update_post');
     Route::patch('/fnb/{id}/stock', [FnbController::class, 'updateStock'])->name('fnb.quick_stock');
     Route::delete('/fnb/{id}', [FnbController::class, 'destroy'])->name('fnb.destroy');
     Route::get('/fnb/order', [FnbController::class, 'cashier'])->name('fnb.cashier');
 
-    // LAPORAN & MEMBER
+    // laporan
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::resource('members', MemberController::class);
 
-    // PROFILE
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

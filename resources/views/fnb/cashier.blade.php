@@ -230,7 +230,7 @@
             let text = item.innerText.toLowerCase();
             if(text.includes(filter)) {
                 item.style.display = ''; // Munculin
-                item.parentElement.style.display = ''; // Munculin wrapper column-nya juga biar rapi (Opsional)
+                item.parentElement.style.display = ''; 
             } else {
                 item.style.display = 'none'; // Umpetin
             }

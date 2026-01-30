@@ -173,7 +173,6 @@
     </div>
 
     <script>
-        // FUNGSI BUKA MODAL EDIT
         function openEditModal(id, name, category, price, stock) {
             // 1. Isi Form dengan data lama
             document.getElementById('editName').value = name;

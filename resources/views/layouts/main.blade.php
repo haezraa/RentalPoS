@@ -163,7 +163,6 @@
     </div>
 
     <script>
-        // SCRIPT SIMPEL BUAT MODAL AJA (Dropdown udah dihapus)
         let targetFormId = null;
 
         // Fungsi Buka Modal
@@ -179,7 +178,6 @@
             targetFormId = null;
         }
 
-        // Fungsi Pas Tombol 'YA' Diklik
         document.getElementById('confirmYesBtn').addEventListener('click', function() {
             if (targetFormId) {
                 document.getElementById(targetFormId).submit();
