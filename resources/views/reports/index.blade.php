@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('judul_halaman', 'Laporan Keuangan')
+@section('judul_halaman', 'Laporan & Riwayat')
 
 @section('konten')
 

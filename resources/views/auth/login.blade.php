@@ -26,7 +26,7 @@
                 KELOLA RENTAL <br> LEBIH MUDAH.
             </h1>
             <p class="text-blue-100 text-lg max-w-md leading-relaxed">
-                Sistem manajemen kasir, stok, dan laporan terintegrasi untuk Rizki Rental.
+                Sistem manajemen kasir, stok, dan laporan terintegrasi untuk Rental.
             </p>
         </div>
 

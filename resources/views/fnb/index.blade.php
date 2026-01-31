@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('judul_halaman', 'Manajemen Stok FnB')
+@section('judul_halaman', 'Stok Gudang')
 
 @section('header_actions')
     <button onclick="document.getElementById('addMenuModal').classList.remove('hidden')"

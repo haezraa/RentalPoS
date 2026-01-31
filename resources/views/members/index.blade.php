@@ -11,7 +11,7 @@
                 @csrf
                 <div class="mb-4">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Member</label>
-                    <input type="text" name="name" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500" required placeholder="Contoh: Asep Racing">
+                    <input type="text" name="name" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500" required placeholder="Contoh: Budi Speed">
                 </div>
                 <div class="mb-4">
                     <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nomor HP (WhatsApp)</label>

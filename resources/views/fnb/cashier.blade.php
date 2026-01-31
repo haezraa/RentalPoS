@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('judul_halaman', 'Order Makanan (Kasir)')
+@section('judul_halaman', 'Order Makanan & Minuman')
 
 @section('konten')
     <div class="flex gap-6 h-[calc(100vh-140px)]">
@@ -230,7 +230,7 @@
             let text = item.innerText.toLowerCase();
             if(text.includes(filter)) {
                 item.style.display = ''; // Munculin
-                item.parentElement.style.display = ''; 
+                item.parentElement.style.display = '';
             } else {
                 item.style.display = 'none'; // Umpetin
             }
