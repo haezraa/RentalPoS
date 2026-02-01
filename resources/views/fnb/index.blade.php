@@ -118,7 +118,7 @@
                 </div>
 
                 <button type="submit" class="w-full bg-[#2251a5] text-white py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-lg">
-                    SIMPAN DATA ✅
+                    SIMPAN DATA
                 </button>
             </form>
         </div>
@@ -129,7 +129,7 @@
 
             <div class="bg-[#2251a5] px-6 py-4 flex justify-between items-center">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <span>✏️</span> <span>Edit Menu</span>
+                    <span></span> <span>Edit Menu</span>
                 </h3>
                 <button onclick="closeEditModal()" class="text-white/70 hover:text-white text-2xl leading-none">&times;</button>
             </div>
@@ -166,7 +166,7 @@
                 </div>
 
                 <button type="submit" class="w-full bg-[#2251a5] text-white py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-lg">
-                    UPDATE DATA 💾
+                    UPDATE DATA
                 </button>
             </form>
         </div>

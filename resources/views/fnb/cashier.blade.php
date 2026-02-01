@@ -46,7 +46,7 @@
 
             <div class="p-4 bg-[#2251a5] text-white rounded-t-xl">
                 <h3 class="font-bold text-lg flex items-center gap-2">
-                    🛒 Pesanan Baru
+                    Pesanan Baru
                 </h3>
             </div>
 
