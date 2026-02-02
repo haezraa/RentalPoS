@@ -68,7 +68,6 @@ class FnbController extends Controller
                 unlink(storage_path('app/public/' . $product->image));
             }
 
-            // 3. --- JURUS MANUAL (MOVE) ---
             // Kita bikin nama file sendiri
             $filename = time() . '_' . $file->getClientOriginalName();
 

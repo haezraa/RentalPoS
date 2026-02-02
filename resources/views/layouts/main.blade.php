@@ -165,14 +165,12 @@
     <script>
         let targetFormId = null;
 
-        // Fungsi Buka Modal
         function openConfirm(message, formId) {
             document.getElementById('confirmMessage').innerText = message;
             targetFormId = formId;
             document.getElementById('globalConfirmModal').classList.remove('hidden');
         }
 
-        // Fungsi Tutup Modal
         function closeConfirmModal() {
             document.getElementById('globalConfirmModal').classList.add('hidden');
             targetFormId = null;

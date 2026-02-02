@@ -180,7 +180,6 @@
             document.getElementById('editPrice').value = price;
             document.getElementById('editStock').value = stock;
 
-            // 2. Set Action Form ke Route POST yang baru
             document.getElementById('editForm').action = "/fnb/update/" + id;
 
             // 3. Munculin Modal

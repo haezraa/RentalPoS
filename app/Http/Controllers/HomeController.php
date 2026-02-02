@@ -22,7 +22,6 @@ class HomeController extends Controller
         $total_transaksi = Transaction::whereDate('created_at', Carbon::today())->count();
 
         // 4. Ambil 5 Riwayat Terakhir (Biar halaman gak sepi)
-        // with('console') biar kita tau dia main di TV berapa
         $riwayat_terbaru = Transaction::with('console')
                             ->latest() // Urutkan dari yang paling baru
                             ->take(5)  // Ambil 5 aja

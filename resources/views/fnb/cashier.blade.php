@@ -105,10 +105,8 @@
     </div>
 
     <script>
-    // Object Cart Utama
     let cart = {};
 
-    // Format Rupiah (Biar rapi)
     const formatRupiah = (number) => {
         return new Intl.NumberFormat('id-ID', {
             style: 'currency',
@@ -149,7 +147,6 @@
         if (cart[id]) {
             let newQty = cart[id].qty + delta;
 
-            // Validasi Stok
             if (delta > 0 && newQty > cart[id].stock) {
                 alert('Stok habis!');
                 return;
@@ -157,7 +154,6 @@
 
             cart[id].qty = newQty;
 
-            // Hapus kalo 0
             if (cart[id].qty <= 0) {
                 delete cart[id];
             }
@@ -174,7 +170,6 @@
         let itemCount = 0;
         let htmlContent = '';
 
-        // Loop Barang
         for (let key in cart) {
             let item = cart[key];
             let subtotal = item.price * item.qty;
@@ -203,7 +198,6 @@
             `;
         }
 
-        // CEK: Kalau Keranjang Kosong, Kita Masukin HTML Kosong Manual
         if (itemCount === 0) {
             htmlContent = `
                 <div class="flex flex-col items-center justify-center h-full text-gray-400 text-sm italic py-10 fade-in">

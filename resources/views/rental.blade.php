@@ -262,7 +262,6 @@
             calculateTotal();
         }
 
-        // --- 3. LOGIC HITUNG HARGA LIVE (PLUS DISKON MEMBER) ---
         function calculateTotal() {
             let type = document.getElementById('modalConsoleType').value;
             let memberSelect = document.getElementById('inputMember');
@@ -270,7 +269,6 @@
 
             let pricePerHour = 0;
 
-            // LOGIKA HARGA (REGULAR vs MEMBER)
             if (type === 'PS3') {
                 pricePerHour = isMember ? 4000 : 5000;
             } else if (type === 'PS4') {
@@ -303,7 +301,6 @@
             document.getElementById('liveTotalDisplay').innerText = formatted;
         }
 
-        // --- 4. TOGGLE QRIS ---
         function toggleQris(show) {
             const qrisArea = document.getElementById('qrisArea');
             if (show) {
@@ -337,7 +334,6 @@
                         clearInterval(interval);
                         timer.innerHTML = "SELESAI";
 
-                        // AUTO RELOAD BIAR RESET STATUS
                         location.reload();
                     } else {
                         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
