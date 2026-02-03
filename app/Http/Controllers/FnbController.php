@@ -25,7 +25,7 @@ class FnbController extends Controller
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
             'category' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi Gambar (Max 2MB)
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // 2. Siapin Data

@@ -215,7 +215,6 @@
         totalEl.innerText = formatRupiah(grandTotal);
     }
 
-    // Filter Search Menu
     document.getElementById('searchMenu').addEventListener('keyup', function() {
         let filter = this.value.toLowerCase();
         let items = document.querySelectorAll('.menu-item-card');

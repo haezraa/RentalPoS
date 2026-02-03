@@ -319,7 +319,6 @@
             document.getElementById('addUnitModal').classList.add('hidden');
         }
 
-        // --- 6. TIMER COUNTDOWN & AUTO RELOAD ---
         document.addEventListener('DOMContentLoaded', function() {
             const timers = document.querySelectorAll('.countdown-timer');
 
