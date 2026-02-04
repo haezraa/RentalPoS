@@ -290,7 +290,6 @@
                 fnbTotal += (qty * price);
             });
 
-            // Total & Format
             let grandTotal = rentalTotal + fnbTotal;
             let formatted = new Intl.NumberFormat('id-ID', {
                 style: 'currency',
@@ -310,7 +309,6 @@
             }
         }
 
-        // --- 5. MODAL TAMBAH UNIT ---
         function openAddModal() {
             document.getElementById('addUnitModal').classList.remove('hidden');
         }

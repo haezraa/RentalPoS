@@ -58,21 +58,16 @@ class FnbController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
 
-            // 1. CEK VALIDITAS FILE (Debugging)
             if (!$file->isValid()) {
                 dd("File Corrupt/Kegedean. Cek php.ini upload_max_filesize");
             }
 
-            // 2. HAPUS GAMBAR LAMA (Pake cara aman)
             if ($product->image && file_exists(storage_path('app/public/' . $product->image))) {
                 unlink(storage_path('app/public/' . $product->image));
             }
 
-            // Kita bikin nama file sendiri
             $filename = time() . '_' . $file->getClientOriginalName();
 
-            // Kita paksa pindahin ke folder storage/app/public/products
-            // move(tujuan, nama_file)
             $file->move(storage_path('app/public/products'), $filename);
 
             // Simpan path ke database
@@ -105,7 +100,6 @@ class FnbController extends Controller
         $products = Product::where('stock', '>', 0)->get();
 
         // Ambil Unit TV yang lagi MAIN atau PAUSE (biar bisa dipesenin makan)
-        // whereIn statusnya 'main' atau 'paused'
         $active_consoles = Console::whereIn('status', ['main', 'paused'])->get();
 
         return view('fnb.cashier', compact('products', 'active_consoles'));
