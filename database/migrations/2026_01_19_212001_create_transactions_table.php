@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('transactions', function (Blueprint $table) {
         $table->id();
         // foreignId artinya kolom ini nyambung ke tabel consoles
-        // onDelete('cascade') artinya kalau TV-nya dihapus, riwayat transaksinya ikut kehapus (biar gak error)
+        // onDelete('cascade') artinya kalau TV-nya dihapus, riwayat transaksinya ikut kehapus
         $table->foreignId('console_id')->constrained()->onDelete('cascade');
 
         $table->string('customer_name')->default('Guest'); // Nama penyewa (opsional)

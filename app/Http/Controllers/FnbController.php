@@ -31,14 +31,11 @@ class FnbController extends Controller
         // 2. Siapin Data
         $data = $request->all();
 
-        // 3. Cek apakah ada file gambar yang diupload?
         if ($request->hasFile('image')) {
-            // Simpan gambar ke folder 'public/storage/products'
             $path = $request->file('image')->store('products', 'public');
             $data['image'] = $path;
         }
 
-        // 4. Simpan ke Database
         Product::create($data);
 
         return back()->with('success', 'Menu berhasil ditambah!');

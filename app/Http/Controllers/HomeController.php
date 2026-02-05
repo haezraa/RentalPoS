@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Transaction; // Panggil Model Transaksi
-use App\Models\Console;     // Panggil Model Console
+use App\Models\Transaction; 
+use App\Models\Console;
 use Carbon\Carbon;
 
 class HomeController extends Controller

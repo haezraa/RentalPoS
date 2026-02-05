@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone')->unique(); // No HP wajib unik
+            $table->string('phone')->unique(); 
             $table->timestamps();
         });
     }
