@@ -255,7 +255,6 @@
             } else {
                 // Balik ke manual
                 namaInput.value = '';
-                // namaInput.readOnly = false;
             }
 
             // Hitung ulang harga (karena diskon berubah)
@@ -348,3 +347,4 @@
     </script>
 
 @endsection
+

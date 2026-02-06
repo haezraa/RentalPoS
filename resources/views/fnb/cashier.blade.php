@@ -205,13 +205,11 @@
                     <p>Keranjang kosong</p>
                 </div>
             `;
-            grandTotal = 0; // Pastikan total dipaksa 0
+            grandTotal = 0;
         }
 
-        // Masukin HTML ke Layar
         container.innerHTML = htmlContent;
 
-        // Update Total Bayar
         totalEl.innerText = formatRupiah(grandTotal);
     }
 

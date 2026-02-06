@@ -174,7 +174,6 @@
 
     <script>
         function openEditModal(id, name, category, price, stock) {
-            // 1. Isi Form dengan data lama
             document.getElementById('editName').value = name;
             document.getElementById('editCategory').value = category;
             document.getElementById('editPrice').value = price;
@@ -182,7 +181,6 @@
 
             document.getElementById('editForm').action = "/fnb/update/" + id;
 
-            // 3. Munculin Modal
             document.getElementById('editProductModal').classList.remove('hidden');
         }
 
