@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class FnbController extends Controller
 {
-    // Halaman Utama FnB (List Menu)
+    // Halaman Utama
     public function index()
     {
         $products = Product::all();
@@ -45,9 +45,7 @@ class FnbController extends Controller
     {
         $product = Product::find($id);
 
-        // ... (Validasi biarin sama) ...
         $request->validate([
-            // ...
         ]);
 
         $data = $request->all();
@@ -67,7 +65,6 @@ class FnbController extends Controller
 
             $file->move(storage_path('app/public/products'), $filename);
 
-            // Simpan path ke database
             $data['image'] = 'products/' . $filename;
         }
 
@@ -83,7 +80,7 @@ class FnbController extends Controller
         return back()->with('success', 'Menu dihapus.');
     }
 
-    // Update Stok (Nambah/Kurang dikit)
+    // Update Stok
     public function updateStock(Request $request, $id)
     {
         $product = Product::find($id);

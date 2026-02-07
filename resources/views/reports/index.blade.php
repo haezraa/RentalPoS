@@ -57,9 +57,14 @@
                             <div class="text-xs">{{ $trans->created_at->format('H:i') }} WIB</div>
                         </td>
                         <td class="px-6 py-4 font-bold text-gray-800">{{ $trans->customer_name }}</td>
+
                         <td class="px-6 py-4">
                             <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs font-bold">
-                                {{ $trans->console ? $trans->console->name : 'Unit Dihapus' }}
+                                @if($trans->console)
+                                    {{ $trans->console->name }} ({{ $trans->console->type }})
+                                @else
+                                    Unit Dihapus
+                                @endif
                             </span>
                         </td>
                         <td class="px-6 py-4 text-gray-600">{{ floor($trans->duration_minutes / 60) }} Jam</td>
@@ -81,7 +86,14 @@
                                 <div class="mb-4 text-sm text-gray-600 space-y-1">
                                     <p>Player: <span class="font-bold text-gray-900">{{ $trans->customer_name }}</span></p>
                                     <p>Waktu: {{ $trans->created_at->format('d M Y, H:i') }}</p>
-                                    <p>Unit: {{ $trans->console ? $trans->console->name : '-' }} ({{ $trans->console ? $trans->console->type : '-' }})</p>
+
+                                    <p>Unit:
+                                        @if($trans->console)
+                                            <span class="font-bold">{{ $trans->console->name }} ({{ $trans->console->type }})</span>
+                                        @else
+                                            -
+                                        @endif
+                                    </p>
                                 </div>
 
                                 <hr class="border-dashed border-gray-300 my-3">
@@ -102,8 +114,7 @@
                                         <div class="flex justify-between text-sm">
                                             <span class="text-gray-600">
                                                 {{ $detail->product ? $detail->product->name : 'Item Dihapus' }}
-                                                <span class="text-xs text-gray-400">x{{ $detail->quantity }}</span>
-                                            </span>
+                                                <span class="text-xs text-gray-400">x{{ $detail->qty }}</span> </span>
                                             <span class="font-bold text-gray-800">Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</span>
                                         </div>
                                     @endforeach

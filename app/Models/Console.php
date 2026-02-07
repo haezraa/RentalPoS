@@ -9,7 +9,6 @@ class Console extends Model
 {
     use HasFactory;
 
-    // Ini biar kita bisa ngisi data langsung banyak sekaligus
     protected $fillable = [
         'name',
         'type',
@@ -26,7 +25,7 @@ class Console extends Model
 
     public function activeTransaction()
     {
-        // FIX: Pake whereIn biar bisa baca yang 'ongoing' DAN 'paused'
+        // Pake whereIn biar bisa baca yang 'ongoing' DAN 'paused'
         return $this->hasOne(Transaction::class)
             ->whereIn('status', ['ongoing', 'paused'])
             ->latestOfMany();

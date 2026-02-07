@@ -161,7 +161,7 @@
         renderCart();
     }
 
-    // 3. RENDER CART (UPDATE: FIX EMPTY STATE & TOTAL 0)
+    // 3. 
     function renderCart() {
         const container = document.getElementById('cartContainer');
         const totalEl = document.getElementById('cartTotal');
@@ -220,10 +220,10 @@
         items.forEach(item => {
             let text = item.innerText.toLowerCase();
             if(text.includes(filter)) {
-                item.style.display = ''; // Munculin
+                item.style.display = '';
                 item.parentElement.style.display = '';
             } else {
-                item.style.display = 'none'; // Umpetin
+                item.style.display = 'none';
             }
         });
     });
